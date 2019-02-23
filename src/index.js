@@ -14,14 +14,14 @@ export default class MaterialDesignIcons {
     // SETUP PLUGIN
     const shortcut = {
       mac: {
-        option: true,
+        command: true,
         shift: true,
-        key: "H"
+        key: "M"
       },
       windows: {
-        alt: true,
+        control: true,
         shift: true,
-        key: "H"
+        key: "M"
       }
     };
 
