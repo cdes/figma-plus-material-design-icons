@@ -4,7 +4,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import { uglify } from 'rollup-plugin-uglify';
 import run from 'rollup-plugin-run';
 import serve from 'rollup-plugin-serve';
-import sass from 'rollup-plugin-sass';
+import postcss from 'rollup-plugin-postcss'
 
 import pkg from './package.json'
 import fs from 'fs';
@@ -104,8 +104,8 @@ export default [
       babel({runtimeHelpers: true}),
       cjs(),
 			uglify(),
-			sass({
-				output: `./public/figma-plugin-panel.css`,
+			postcss({
+				extract: true
 			}),
 		],
 	},
@@ -121,12 +121,12 @@ export default [
 			distCleaner(),
 			resolve(),
       babel({runtimeHelpers: true,}),
-      cjs(),
+			cjs(),
 			development && RUN && run(), // Dev mode: run the bundle to see output in console/terminal
 			development && serve(devServerOptions), // Dev Serve mode: serve  bundle
 			production && uglify(), // Production: uglify bundle,
-			sass({
-				output: `./dist/${pkg.name}.css`,
+			postcss({
+				extract: true
 			}),
 			logger(),
     ],

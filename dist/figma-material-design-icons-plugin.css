@@ -1,0 +1,133 @@
+.figma-material-design-icons-plugin {
+  display: flex;
+  flex-direction: column; }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+  .figma-material-design-icons-plugin .loading {
+    content: "";
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA5hJREFUeNrMWFtrE0EUzpikTW+aemtrEy9Iq7VqLAiKgoIg/gDf/Y2+iIL44JOIRuu1rb1YtBYTa2q1bUyTZj0HvpHjsJdJdgge+NhJdnbm23OfVQk3spdwh5AhvCU8sH3Q8zzf//c4InaW0C3GsSVlOe8a4SRhifA4xn77oYxNwu+wiTYayxGmYK4pEGxHDhIO45qLmmxD7Ce7gnYJwnVhNltJEwZb2deW2LQgpzX3jw9HrMGaSmKsCOsuiLE8JdQECW1aG+klDAhSdcI3V8RqIKc10w2T2siw8XvV5iFJjDe7SrgBBzVlWvibhyDICXPLl5AO3yW09Yuw7UdEKZUJShfnAV7gNOE14Zmx0UPCbSNiVwjvCHnCPkJR3O8R411CyYfQILSaovEWJdyloDzmgRyTPEV4TniFe18IM4QJEF4Uz/ll+6bh8HVxr48wgmqhxH9/H5CmvEUYlS+EKyfERyDGcgjmq0W4ShJaZG1tiNSRAwll7FUljc2bxLSwli6KqFPieleQa0cOQEvmugmYeY2I7QaZco6wTDgHSKc8EpPYiI+WWPOrRGjHplbW4FtM8grhBCJqNmZtriNKFdyjTIQ2faM00VnpQmligpWwtqfTxKz7MSZ2LKKH4jlPCN8dcUkiCJIhc6op9FpdEYtdJtxzRCwHYqHWSyGvRHUHTYfWS9m4EE84SpgMmcNh/FI7qwPpxZ5h7dL2f+v8Nm1PP6GAa8dEReScAjoNnXQ5ALZi7DeJUldGV1IL0lhQ5p9Ad5EW/VcaWmuXGBfzLNYawonpK+GzDbEhlKA+wzk9FNlSDG3VDAvxi+apB+NOZZk0VwkyZQFF2yTEGnqDM6XumbIwR90yPTSE1sbQGHhGVHJbNEcEGyaxmzjNyDecA3Tlz2KeJnw/gtAl9HllfDrQMoqON2kookLEZk1TVkDMg2MWffzpgliox/CfMfw/j1ZmAHOaaCyH4VO6Ey6haxmK8rEiCO0EnPtGsYF+O3kEG8cGTdx/IT4BaKswiTVh1gZeoow+z5OBYDp/KeQkXRB+4eGwIu+b4yo2yuN3BuOPRoLdEG13y+fKcZQSra0Fv8V8ZFFoSKGAZ1o9VwYJR+EZo3bOBJyuTGkgmhWQhkmdEDtumHDGJ02EdSefYFZ5Mu93QUzmmw2YsVV5L8ypbL7L2Xy4mxf+tdBm1l8XgcDjHy6I1XFiiisfgIQrH7MRmQJWXCz4R4ABAGqAAd+a+e3dAAAAAElFTkSuQmCC) 50% 50% no-repeat;
+    background-size: 19px 19px;
+    animation: spin 1s linear infinite; }
+  .figma-material-design-icons-plugin #scrollable table {
+    width: 100%;
+    border-collapse: collapse; }
+    .figma-material-design-icons-plugin #scrollable table table,
+    .figma-material-design-icons-plugin #scrollable table th,
+    .figma-material-design-icons-plugin #scrollable table td {
+      border: 1px solid #eee; }
+  .figma-material-design-icons-plugin #mdi-icons {
+    width: 100%; }
+    .figma-material-design-icons-plugin #mdi-icons td {
+      text-align: center;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0);
+      transition: 0.2s background-color ease; }
+      .figma-material-design-icons-plugin #mdi-icons td img {
+        opacity: 0.6;
+        transition: 0.2s all ease;
+        padding: 32px; }
+      .figma-material-design-icons-plugin #mdi-icons td:hover {
+        background-color: rgba(0, 0, 0, 0.05); }
+        .figma-material-design-icons-plugin #mdi-icons td:hover img {
+          opacity: 1;
+          transform: scale(1.2); }
+  .figma-material-design-icons-plugin .figma-icon,
+  .figma-material-design-icons-plugin .figma-icon-button {
+    font-family: FigmaIcons;
+    color: #444;
+    fill: #444;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+  .figma-material-design-icons-plugin .search {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 48px;
+    height: 48px;
+    border-bottom: 1px solid #d4d4d4;
+    display: flex;
+    box-align: center;
+    align-items: center; }
+    .figma-material-design-icons-plugin .search .g0df6baaf {
+      margin-left: 24px; }
+    .figma-material-design-icons-plugin .search .g0df6baaf:after {
+      content: "\16B";
+      font-size: 12px; }
+    .figma-material-design-icons-plugin .search input {
+      cursor: text;
+      background: none;
+      height: 32px;
+      width: 100%;
+      margin-left: 10px;
+      border: none;
+      font-family: Roboto, sans-serif;
+      color: #444;
+      padding: 0 2px 0 4px;
+      box-sizing: border-box; }
+  .figma-material-design-icons-plugin .scrollable {
+    padding: 0;
+    flex-basis: 1;
+    overflow-y: scroll; }
+  .figma-material-design-icons-plugin .empty {
+    background-color: #fff;
+    text-align: center;
+    display: flex;
+    align-content: center;
+    justify-content: center; }
+    .figma-material-design-icons-plugin .empty h2 {
+      font-size: 14px;
+      font-weight: 400;
+      margin: 0;
+      padding: 0; }
+    .figma-material-design-icons-plugin .empty p {
+      font-size: 11px;
+      line-height: 15px;
+      margin-top: 18px;
+      color: #aaa; }
+  .figma-material-design-icons-plugin:last-child {
+    border-radius: 0 0 3px 3px; }
+
+/* max-height - the only parameter in this file that needs to be edited.
+ * Change it to suit your needs. The rest is recommended to leave as is.
+ */
+.clusterize-scroll{
+  max-height: 200px;
+  overflow: auto;
+}
+
+/**
+ * Avoid vertical margins for extra tags
+ * Necessary for correct calculations when rows have nonzero vertical margins
+ */
+.clusterize-extra-row{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* By default extra tag .clusterize-keep-parity added to keep parity of rows.
+ * Useful when used :nth-child(even/odd)
+ */
+.clusterize-extra-row.clusterize-keep-parity{
+  display: none;
+}
+
+/* During initialization clusterize adds tabindex to force the browser to keep focus
+ * on the scrolling list, see issue #11
+ * Outline removes default browser's borders for focused elements.
+ */
+.clusterize-content{
+  outline: 0;
+  counter-reset: clusterize-counter;
+}
+
+/* Centering message that appears when no data provided
+ */
+.clusterize-no-data td{
+  text-align: center;
+}

@@ -1,5 +1,5 @@
-import ExamplePlugin from '../src';
-const instance = new ExamplePlugin();
+import MaterialDesignIcons from '../src';
+const instance = new MaterialDesignIcons();
 
 test('it has a name', () => {
   expect(typeof instance.pluginName).toBe('string');

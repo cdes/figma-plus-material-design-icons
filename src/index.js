@@ -1,11 +1,15 @@
 /** @jsx h */
-import "./figma-plugin-ui.scss";
+import "./styles.scss";
+import "clusterize.js/clusterize.css";
 import h from "vhtml";
 import { getDomNode, createHtmlNodes } from "./utils";
+import FuzzySearch from "fuzzy-search";
+import Clusterize from "clusterize.js";
+import copy from "clipboard-copy";
 
-export default class ExamplePlugin {
+export default class MaterialDesignIcons {
   constructor() {
-    this.pluginName = "Example Plugin";
+    this.pluginName = "Material Design Icons";
 
     // SETUP PLUGIN
     const shortcut = {
@@ -26,104 +30,33 @@ export default class ExamplePlugin {
     window.figmaPlus.createPluginsMenuItem(...options);
     window.figmaPlus.createKeyboardShortcut(shortcut, this.showUI);
 
-    // The UI follows a strict structure to utlize the CSS shipped with this boilerplate
-    // But you can freely play with the css in figma-plugin-ui.scss
-
-    this.UI = (
-      <div class="figma-plugin-ui">
-        <div class="scrollable">
-          <h2>Section 1</h2>
-
-          <div class="field">
-            <label for="input1">Label</label>
-            <input id="input1" type="text" />
-            <p>
-              Help text for input, explain what's the behavior of this input
-              field.
-            </p>
-          </div>
-
-          <h2>Section 2</h2>
-
-          <div class="field-row">
-            <label for="input2">Label</label>
-            <input id="input2" type="text" />
-          </div>
-
-          <div class="field-row">
-            <label for="input3">Label</label>
-            <input id="input3" type="text" />
-          </div>
-
-          <div class="field-row">
-            <label for="input4">Label</label>
-            <input id="input4" type="text" />
-          </div>
-
-          <h2>Section 3</h2>
-
-          <div class="field">
-            <label for="select1">Select</label>
-            <select id="select1">
-              <option>First</option>
-              <option>Second</option>
-              <option>Third</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="select2">Select with wrapper</label>
-            <div class="select">
-              <select id="select2">
-                <option>First</option>
-                <option>Second</option>
-                <option>Third</option>
-              </select>
-            </div>
-          </div>
-
-          <h2>Section 3</h2>
-          <div class="field-row">
-            <button id="button1">Button 1</button>
-            <button id="button2">Button 2</button>
-            <button id="button3">Button 3</button>
-            <button id="button4">Button 4</button>
-          </div>
-        </div>
-        <footer>
-          <button id="button-secondary">Secondary</button>
-          <button id="button-primary" class="primary">
-            Primary
-          </button>
-        </footer>
-      </div>
-    );
+    this.iconsData = [];
   }
 
-  attachEvents = () => {
-    // No need to removeEventListeners because
-    // the hideUI removes your plugin from the DOM.
-
-    ["#input1", "#input2", "#input3", "#input4"].map(id =>
-      getDomNode(id).addEventListener("input", this.onInteract)
+  showUI = async () => {
+    this.UI = (
+      <div class="figma-material-design-icons-plugin">
+        <div class="search">
+          <span class="g0df6baaf" />
+          <input
+            placeholder="Search for icons"
+            spellcheck="false"
+            type="text"
+            id="icon-query"
+            name="icon-query"
+          />
+        </div>
+        <div class="scrollable" id="scrollable">
+          <table>
+            <tbody id="mdi-icons" class="clusterize-content">
+              <tr class="clusterize-no-data">
+                <td>Loading data…</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     );
-
-    ["#select1", "#select2"].map(id =>
-      getDomNode(id).addEventListener("change", this.onInteract)
-    );
-
-    [
-      "#button1",
-      "#button2",
-      "#button3",
-      "#button4",
-      "#button-secondary",
-      "#button-primary"
-    ].map(id => getDomNode(id).addEventListener("click", this.onInteract));
-  };
-
-  showUI = () => {
-    // Show the plugin modal using figmaPlugin API.
 
     window.figmaPlus.showUI(
       this.pluginName,
@@ -135,20 +68,125 @@ export default class ExamplePlugin {
       600
     );
 
-    // Hookup onInteract to handle all UI events.
-    // You can also use a separate handler for each UI element..
-    // it's just plain ol javascript.
+    const packageResponse = await fetch(
+      "https://data.jsdelivr.com/v1/package/npm/@mdi/svg"
+    );
+    const packageJson = await packageResponse.json();
+
+    const latestVersion = packageJson.tags.latest;
+    const storedVersion = localStorage.getItem("mdisvgversion", "0");
+    const storedData = localStorage.getItem("mdisvgmeta", null);
+
+    if (
+      latestVersion !== storedVersion ||
+      storedData === null ||
+      storedData.length < 100
+    ) {
+      const mdiResponse = await fetch(
+        `https://cdn.jsdelivr.net/npm/@mdi/svg@${latestVersion}/meta.json`
+      );
+      const mdiJson = await mdiResponse.json();
+
+      const json = mdiJson.map(({ name, tag, aliases }) => ({
+        name,
+        tag,
+        aliases
+      }));
+      const mdiText = JSON.stringify(json);
+
+      localStorage.setItem("mdisvgmeta", mdiText);
+      localStorage.setItem("mdisvgversion", latestVersion);
+      this.version = latestVersion;
+
+      this.iconsData = json;
+    } else {
+      this.version = storedVersion;
+      const mdiText = localStorage.getItem("mdisvgmeta");
+      const json = JSON.parse(mdiText);
+      this.iconsData = json;
+    }
+
+    this.searcher = new FuzzySearch(
+      this.iconsData,
+      ["name", "aliases", "tags"],
+      {
+        caseSensitive: false
+      }
+    );
+
+    this.clusterize = new Clusterize({
+      rows: this.getRowsHTML(this.iconsData),
+      scrollId: "scrollable",
+      contentId: "mdi-icons",
+      rows_in_block: 4
+    });
 
     this.attachEvents();
   };
 
-  onInteract = event => {
-    console.log(event.target.id, event);
+  getRowsHTML = rows => {
+    const groupSize = 5;
 
-    if (event.target.id === "button-primary") {
+    const iconsRows = rows
+      .map((icon, index) => {
+        return index % groupSize === 0
+          ? rows.slice(index, index + groupSize)
+          : null;
+      })
+      .filter(icon => icon)
+      .map(group => {
+        return (
+          <tr>
+            {group.map(icon => (
+              <td>
+                <img
+                  src={`https://cdn.jsdelivr.net/npm/@mdi/svg@${
+                    this.version
+                  }/svg/${icon.name}.svg`}
+                  width="24"
+                  height="24"
+                />
+              </td>
+            ))}
+          </tr>
+        );
+      });
+
+    return iconsRows;
+  };
+
+  attachEvents = () => {
+    // No need to removeEventListeners because
+    // the hideUI removes your plugin from the DOM.
+
+    ["#icon-query"].map(id =>
+      getDomNode(id).addEventListener("input", this.onSearch)
+    );
+
+    ["#mdi-icons"].map(id =>
+      getDomNode(id).addEventListener("click", this.onClick)
+    );
+  };
+
+  onClick = async event => {
+    const target = event.target;
+
+    if (target.tagName === "IMG") {
+      const url = target.src;
+      const response = await fetch(url);
+      const text = await response.text();
+      copy(text);
+
+      figmaPlus.showToast("Copied! Now paste it anywhere ;)");
+
       window.figmaPlus.hideUI(this.pluginName);
     }
   };
+
+  onSearch = event => {
+    const result = this.searcher.search(event.target.value);
+    this.clusterize.update(this.getRowsHTML(result));
+  };
 }
 
-window.examplePlugin = new ExamplePlugin();
+window.materialDesignIconsPlugin = new MaterialDesignIcons();
