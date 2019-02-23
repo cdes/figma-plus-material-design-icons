@@ -1,12 +1,15 @@
 {
-	"name": "Alert File Name",
-	"id": "figma-ui-plugin-boilerplate",
+	"name": "Material Design Icons",
+	"id": "figma-material-design-icons-plugin",
 	"version": "0.0.1",
 	"author": "Ahmad Al Haddad",
-	"github": "https://github.com/figma-plus/ui-plugin-boilerplate",
-  "description": "An example plugin for Figma that utlize Figma Plugin Manager API.",
-	"instructions": "1. Browse Plugins menu 2. Click 'Alert File Name'",
+	"github": "https://github.com/cdes/figma-material-design-icons-plugin",
+  "description": "Search, copy and paste icons from MaterialDesignIcons.com",
+	"instructions": "1. Browse Plugins menu 2. Click  on any icon.  3. Paste in Figma",
 	"js": [
-		"dist/figma-ui-plugin-boilerplate.js"
+		"dist/figma-material-design-icons-plugin.js"
+	],
+	"css": [
+		"dist/figma-material-design-icons-plugin.css"
   ]
 }

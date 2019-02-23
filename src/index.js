@@ -58,6 +58,8 @@ export default class MaterialDesignIcons {
       </div>
     );
 
+    //figmaPlus.showUI(modalTitle, callback, width, height, positionX, positionY, overlay, includePadding, tabs);
+
     window.figmaPlus.showUI(
       this.pluginName,
       modalElement => {
@@ -65,7 +67,11 @@ export default class MaterialDesignIcons {
         modalElement.parentNode.replaceChild(htmlNodes, modalElement);
       },
       460,
-      600
+      600,
+      0.5,
+      0.5,
+      false,
+      false
     );
 
     const packageResponse = await fetch(
