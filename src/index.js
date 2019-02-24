@@ -1,10 +1,9 @@
 /** @jsx h */
 import "./styles.scss";
-import "clusterize.js/clusterize.css";
 import h from "vhtml";
 import { getDomNode, createHtmlNodes } from "./utils";
 import FuzzySearch from "fuzzy-search";
-import Clusterize from "clusterize.js";
+import HyperList from "hyperlist";
 import copy from "clipboard-copy";
 
 export default class MaterialDesignIcons {
@@ -47,13 +46,12 @@ export default class MaterialDesignIcons {
           />
         </div>
         <div class="scrollable" id="scrollable">
-          <table>
-            <tbody id="mdi-icons" class="clusterize-content">
-              <tr class="clusterize-no-data">
-                <td>Loading data…</td>
-              </tr>
-            </tbody>
-          </table>
+          <div id="mdi-icons">
+            <div class="empty">
+              <h2>Loading Icons...</h2>
+              <p>Sit tight ;)</p>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -120,12 +118,24 @@ export default class MaterialDesignIcons {
       }
     );
 
-    this.clusterize = new Clusterize({
-      rows: this.getRowsHTML(this.iconsData),
-      scrollId: "scrollable",
-      contentId: "mdi-icons",
-      rows_in_block: 4
-    });
+    const rowsHTML = this.getRowsHTML(this.iconsData);
+
+    const requiredOptions = {
+      itemHeight: 92,
+      width: "100%",
+      height: "555px",
+      total: rowsHTML.length,
+      generate(index) {
+        const el = document.createElement("div");
+        el.innerHTML = rowsHTML[index];
+        return el;
+      }
+    };
+
+    this.list = new HyperList(
+      document.getElementById("mdi-icons"),
+      requiredOptions
+    );
 
     this.attachEvents();
   };
@@ -141,21 +151,19 @@ export default class MaterialDesignIcons {
       })
       .filter(icon => icon)
       .map(group => {
-        return (
-          <tr>
-            {group.map(icon => (
-              <td>
-                <img
-                  src={`https://cdn.jsdelivr.net/npm/@mdi/svg@${
-                    this.version
-                  }/svg/${icon.name}.svg`}
-                  width="24"
-                  height="24"
-                />
-              </td>
-            ))}
-          </tr>
-        );
+        return group
+          .map(icon => (
+            <div class="mdip-icon">
+              <img
+                src={`https://cdn.jsdelivr.net/npm/@mdi/svg@${
+                  this.version
+                }/svg/${icon.name}.svg`}
+                width="24"
+                height="24"
+              />
+            </div>
+          ))
+          .join("");
       });
 
     return iconsRows;
@@ -191,7 +199,21 @@ export default class MaterialDesignIcons {
 
   onSearch = event => {
     const result = this.searcher.search(event.target.value);
-    this.clusterize.update(this.getRowsHTML(result));
+    const rowsHTML = this.getRowsHTML(result);
+
+    const requiredOptions = {
+      width: "100%",
+      height: "555px",
+      itemHeight: 92,
+      total: rowsHTML.length,
+      generate(index) {
+        const el = document.createElement("div");
+        el.innerHTML = rowsHTML[index];
+        return el;
+      }
+    };
+
+    this.list.refresh(document.getElementById("mdi-icons"), requiredOptions);
   };
 }
 
