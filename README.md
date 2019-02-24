@@ -1,57 +1,30 @@
-<h1 align="center"> Figma UI Plugin Boilerplate </h1>
+<h1 align="center"> Material Design Icons Plugin for Figma </h1>
 
-<p align="center"> Kickstart your awesome Figma plugin with this boilerplate. </p>
+<p align="center"> Browse, find, copy and paste icons from MaterialDesignIcons.com right from inside Figma</p>
 
 <hr/>
 
 <p align="center"> 
-<img align="center" src="https://user-images.githubusercontent.com/1207863/52892776-d20e5e80-31a6-11e9-8fd6-8414d148443a.gif" />
+<img align="center" src="https://user-images.githubusercontent.com/1207863/53296104-bdbb0900-3819-11e9-89fa-55ebf80362c1.gif" />
  </p>
 
 <h3> Features </h3>
 
 <ul>
-  <li>Plugin UI with vhtml</li>
-  <li>Figma-like styles with SASS</li>
-  <li>Basic local simulation for figmaPlus.showUI()</li>
-  <li>Modern Javascript (ES6)</li>
-  <li>Uses native Javascript events (Frontend frameworks are an overkill)</li>
-  <li>Tests using Jest</li>
-  <li>Transpiling using Babel and bundle using Rollup</li>
-  <li>Code formatting with Prettier</li>
+  <li>All 3000+ icons from <a href="https://materialdesignicons.com">MaterialDesignIcons.com</a></li>
+  <li>Always lateast icons thanks to <a href="https://jsdelivr.com">jsdelivr</a></li>
+  <li>Blazing fast filtering thanks to <a href="https://www.npmjs.com/package/fuzzy-search">fuzzy-search</a></li>
+  <li>Smooth scrolling thanks to  <a href="https://www.npmjs.com/package/hyperlist">hyperlist</a></li>
 </ul>
 
 
-<h3> Download & Development </h3>
+# How to install
+Can be installed from ([Figma Plus](https://figmaplus.com/)).
 
-
-```shell
-$ git clone https://github.com/figma-plus/ui-plugin-boilerplate
-```
-
-
-```shell
-$ yarn install
-```
-
-
-```shell
-$ yarn serve
-```
-
-
-```shell
-$ yarn test
-```
-
-<h4> Build a Distribution Bundle </h4>
-
-```shell
-$ yarn build
-```
-
-You'll see your bundle inside `dist` directory.
-Follow the <a href="https://docs.figmaplus.com/#/developerGuide/publish">docs instructions</a> to publish it.
+# How to use
+1. Open plugin from Figma Plus menu (or use CMD+SHIFT+M (CTR+SHIFT+M for Windows))
+2. Click on any icon.
+3. Paste in Figma
 
 <h3>License</h3>
 
