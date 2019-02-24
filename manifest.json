@@ -4,7 +4,7 @@
 	"version": "0.0.2",
 	"author": "Ahmad Al Haddad",
 	"github": "https://github.com/cdes/figma-material-design-icons-plugin",
-  "description": "Search, copy and paste icons from MaterialDesignIcons.com",
+  "description": "Browse, find, copy and paste icons from MaterialDesignIcons.com right from inside Figma",
 	"instructions": "1. Open plugin from Figma Plus menu (or use CMD+SHIFT+M (CTR+SHIFT+M for Windows)) 2. Click on any icon.  3. Paste in Figma",
 	"js": [
 		"dist/figma-material-design-icons-plugin.js"
