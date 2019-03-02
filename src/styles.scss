@@ -22,6 +22,7 @@
   #mdi-icons {
     width: 100%;
     height: 555px;
+    overflow-x: hidden !important;
 
     .vrow {
       display: flex;
