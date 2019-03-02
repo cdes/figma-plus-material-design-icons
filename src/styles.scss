@@ -78,13 +78,8 @@
     box-align: center;
     align-items: center;
 
-    .g0df6baaf {
+    .g7a016758 {
       margin-left: 24px;
-    }
-
-    .g0df6baaf:after {
-      content: "\16B";
-      font-size: 12px;
     }
 
     input {
@@ -109,7 +104,7 @@
     padding: 0;
     flex-basis: 555px;
     height: 555px;
-    overflow-y: scroll;
+    overflow: hidden;
   }
 
   .empty {

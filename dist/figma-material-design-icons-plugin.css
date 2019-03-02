@@ -56,11 +56,8 @@
     display: flex;
     box-align: center;
     align-items: center; }
-    .figma-material-design-icons-plugin .search .g0df6baaf {
+    .figma-material-design-icons-plugin .search .g7a016758 {
       margin-left: 24px; }
-    .figma-material-design-icons-plugin .search .g0df6baaf:after {
-      content: "\16B";
-      font-size: 12px; }
     .figma-material-design-icons-plugin .search input {
       cursor: text;
       background: none;
@@ -78,7 +75,7 @@
     padding: 0;
     flex-basis: 555px;
     height: 555px;
-    overflow-y: scroll; }
+    overflow: hidden; }
   .figma-material-design-icons-plugin .empty {
     background-color: #fff;
     text-align: center;

@@ -36,7 +36,7 @@ export default class MaterialDesignIcons {
     this.UI = (
       <div class="figma-material-design-icons-plugin">
         <div class="search">
-          <span class="g0df6baaf" />
+          <span class="g7a016758" />
           <input
             placeholder="Search for icons"
             spellcheck="false"
