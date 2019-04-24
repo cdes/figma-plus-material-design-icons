@@ -1,7 +1,7 @@
 /** @jsx h */
 import "./styles.scss";
 import h from "vhtml";
-import { getDomNode, createHtmlNodes } from "./utils";
+import { getDomNode } from "./utils";
 import FuzzySearch from "fuzzy-search";
 import HyperList from "hyperlist";
 import copy from "clipboard-copy";
@@ -24,10 +24,13 @@ export default class MaterialDesignIcons {
       }
     };
 
-    const options = [this.pluginName, this.showUI, null, shortcut];
+    const options = {
+      label: this.pluginName,
+      action: this.showUI,
+      shortcut
+    };
 
-    window.figmaPlus.createPluginsMenuItem(...options);
-    window.figmaPlus.createKeyboardShortcut(shortcut, this.showUI);
+    window.figmaPlus.addCommand(options);
 
     this.iconsData = [];
   }
@@ -56,21 +59,15 @@ export default class MaterialDesignIcons {
       </div>
     );
 
-    //figmaPlus.showUI(modalTitle, callback, width, height, positionX, positionY, overlay, includePadding, tabs);
-
-    window.figmaPlus.showUI(
-      this.pluginName,
-      modalElement => {
-        const htmlNodes = createHtmlNodes(this.UI);
-        modalElement.parentNode.replaceChild(htmlNodes, modalElement);
-      },
-      460,
-      600,
-      0.5,
-      0.5,
-      false,
-      false
-    );
+    window.figmaPlus.showUI({
+      title: this.pluginName,
+      html: this.UI,
+      width: 460,
+      height: 600,
+      overlay: false,
+      includePadding: false,
+      useFigmaStyles: false
+    });
 
     const packageResponse = await fetch(
       "https://data.jsdelivr.com/v1/package/npm/@mdi/svg"
@@ -129,6 +126,11 @@ export default class MaterialDesignIcons {
         const el = document.createElement("div");
         el.innerHTML = rowsHTML[index];
         return el;
+      },
+      afterRender: () => {
+        [...document.querySelectorAll(".mdip-icon img")].map(img =>
+          img.addEventListener("load", this.removeLoadingIndicator)
+        );
       }
     };
 
@@ -153,13 +155,15 @@ export default class MaterialDesignIcons {
       .map(group => {
         return group
           .map(icon => (
-            <div class="mdip-icon">
+            <div class="mdip-icon" id={`${icon.name}-div`}>
               <img
+                data-icon-name={`${icon.name}`}
                 src={`https://cdn.jsdelivr.net/npm/@mdi/svg@${
                   this.version
                 }/svg/${icon.name}.svg`}
                 width="24"
                 height="24"
+                load="this"
               />
             </div>
           ))
@@ -180,6 +184,15 @@ export default class MaterialDesignIcons {
     ["#mdi-icons"].map(id =>
       getDomNode(id).addEventListener("click", this.onClick)
     );
+  };
+
+  removeLoadingIndicator = event => {
+    const { iconName } = event.target.dataset;
+    const element = document.getElementById(`${iconName}-div`);
+
+    if (element !== null) {
+      element.style.backgroundImage = "none";
+    }
   };
 
   onClick = async event => {

@@ -1,7 +1,7 @@
 {
 	"name": "Material Design Icons",
 	"id": "figma-material-design-icons-plugin",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"author": "Ahmad Al Haddad",
 	"github": "https://github.com/cdes/figma-material-design-icons-plugin",
   "description": "Browse, find, copy and paste icons from MaterialDesignIcons.com right from inside Figma",
